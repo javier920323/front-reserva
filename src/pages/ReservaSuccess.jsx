@@ -19,7 +19,7 @@ const ReservaSuccess = () => {
   if (!local_nombre || !fecha) return null;
 
   return (
-    <div className="reserva-exitosa-container">
+    <div className="reserva-exitosa-container container">
       <h2>¡Reserva Exitosa! 🎉</h2>
       <p>
         <strong>Local:</strong> {local_nombre}

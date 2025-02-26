@@ -1,32 +1,35 @@
-import { useNavigate } from "react-router-dom";
-import { UsuarioContext } from "../context/UsuarioContext";
-import { useContext } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom"; // Usamos react-router-dom para navegación
 
 const Navbar = () => {
-  const { usuario, logout } = useContext(UsuarioContext);
-  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false); // Estado para manejar el menú hamburguesa
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen); // Alterna el estado del menú
+  };
 
   return (
-    <nav>
-      <h1>Reserva App</h1>
-      {usuario ? (
-        <>
-          <span>
-            {usuario.nombre} ({usuario.rol})
-          </span>
-          <button
-            onClick={() => {
-              logout();
-              navigate("/login");
-            }}
-          >
-            Cerrar sesión
-          </button>
-        </>
-      ) : (
-        <button onClick={() => navigate("/login")}>Iniciar sesión</button>
-      )}
-    </nav>
+    <header className={`navbar ${isOpen ? "open" : ""}`}>
+      <Link to="/" className="logo">
+        MiApp
+      </Link>
+      <div className={`menu ${isOpen ? "mobile" : ""}`}>
+        <Link to="/reserva" onClick={() => setIsOpen(false)}>
+          Reserva
+        </Link>
+        <Link to="/login" onClick={() => setIsOpen(false)}>
+          Login
+        </Link>
+        <Link to="/registro" onClick={() => setIsOpen(false)}>
+          Registro
+        </Link>
+      </div>
+      <div className="hamburger" onClick={toggleMenu}>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </header>
   );
 };
 

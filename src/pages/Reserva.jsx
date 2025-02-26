@@ -42,7 +42,7 @@ function Reserva() {
   };
 
   return (
-    <div className="app-container">
+    <div className="app-container container">
       <h1>Reserva tu turno</h1>
       <form onSubmit={handleSubmit}>
         <LocalesList setLocal={setLocal} />

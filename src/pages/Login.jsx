@@ -29,7 +29,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="app-container container">
       <h2>Iniciar Sesión</h2>
       <form onSubmit={handleSubmit}>
         <input
