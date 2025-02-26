@@ -1,0 +1,125 @@
+.datepicker-container {
+  position: relative;
+  width: 100%;
+  max-width: 300px; /* Tamaño máximo para que no se expanda demasiado */
+  margin: 0 auto; /* Centrar el campo en su contenedor */
+}
+
+.datepicker-input {
+  padding: 12px 16px;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: #fafafa;
+  width: 100%;
+  box-sizing: border-box; /* Para asegurarnos de que el padding no afecte el tamaño total */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.datepicker-input:focus {
+  border-color: #4caf50;
+  outline: none;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.6);
+}
+
+.calendar {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  padding: 10px;
+  z-index: 1000;
+  gap: 5px;
+  font-family: "Arial", sans-serif;
+  font-size: 1rem;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  padding: 0 5px;
+}
+
+.prev-month,
+.next-month {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: #4caf50;
+}
+
+.prev-month:hover,
+.next-month:hover {
+  color: #388e3c;
+}
+
+.calendar-day {
+  padding: 10px;
+  background-color: #f4f7fc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-day:hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+.calendar-day:active {
+  background-color: #388e3c;
+}
+
+.calendar-day.selected {
+  background-color: #4caf50;
+  color: white;
+}
+
+.calendar-day.disabled {
+  background-color: #f0f0f0;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.calendar-body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.calendar-body button {
+  color: black;
+  font-size: 1rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 5.5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.calendar-body button:hover {
+  background-color: #4caf50;
+  color: white;
+}
+
+.calendar-body button:active {
+  background-color: #388e3c;
+}
+
+.calendar-day.disabled {
+  pointer-events: none;
+  background-color: #f7f7f7;
+  color: #dcdcdc;
+}
