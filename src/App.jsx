@@ -6,6 +6,7 @@ import Reserva from "./pages/Reserva";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
 import Registro from "./pages/Registro";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -15,8 +16,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
-        <Route path="/reserva" element={<Reserva />} />
-        <Route path="/reserva-success" element={<ReservaSuccess />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/reserva" element={<Reserva />} />
+          <Route path="/reserva-success" element={<ReservaSuccess />} />
+        </Route>
       </Routes>
     </>
   );
