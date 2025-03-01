@@ -1,10 +1,14 @@
-// src/pages/Registro.jsx
-import { useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UsuarioContext } from "../context/UsuarioContext";
+import { registrarUsuario } from "../api/api";
 
 const Registro = () => {
-  const { usuario, setUsuario } = useContext(UsuarioContext);
+  const [usuario, setUsuario] = useState({
+    nombre: "",
+    email: "",
+    password: "",
+    rol: "usuario", // Por defecto, "usuario", puede cambiar a "admin"
+  });
 
   const navigate = useNavigate();
 
@@ -16,7 +20,7 @@ const Registro = () => {
     e.preventDefault();
     try {
       // Realizar la llamada a la API para registrar el usuario
-      //await registrarUsuario(datos);
+      await registrarUsuario(usuario);
       navigate("/login"); // Redirigir a la página de login después de registrarse exitosamente
     } catch (err) {
       console.error("Error en el registro", err);
@@ -48,6 +52,18 @@ const Registro = () => {
           value={usuario.password}
           onChange={handleChange}
         />
+        <div className="radioFlex">
+          <label>
+            default
+            <input type="radio" name="rol" onChange={handleChange} />
+          </label>
+
+          <label>
+            admin
+            <input type="radio" name="rol" onChange={handleChange} />
+          </label>
+        </div>
+
         <button type="submit">Registro</button>
       </form>
     </div>

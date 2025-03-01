@@ -2,6 +2,7 @@ import { useState } from "react";
 import LocalesList from "../components/LocalesList";
 import DatePicker from "../components/DataPicker/DatePicker";
 import { useNavigate } from "react-router-dom";
+import { realizaReserva } from "../api/api";
 
 function Reserva() {
   const [local, setLocal] = useState({});
@@ -19,25 +20,16 @@ function Reserva() {
     }
 
     try {
-      const response = await fetch("https://api-reserva-0pxp.onrender.com/api/reservas", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ local_id: local._id, fecha }),
+      // Llamamos a la función realizaReserva para hacer la reserva
+      await realizaReserva(local._id, fecha);
+
+      // Si todo va bien, redirigimos al usuario
+      navigate("/reserva-success", {
+        state: { local_nombre: local.nombre, fecha },
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        // Redirigir a la página de éxito con datos de la reserva
-        navigate("/reserva-success", {
-          state: { local_nombre: local.nombre, fecha },
-        });
-      } else {
-        setError(data.error || "No se pudo completar la reserva.");
-      }
     } catch (error) {
-      console.error("Error al reservar:", error);
-      setError("Error en la conexión con el servidor.");
+      // Si hay un error, mostramos el mensaje de error
+      setError(error.message);
     }
   };
 

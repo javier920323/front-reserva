@@ -1,0 +1,85 @@
+/* AdminPage.module.css */
+
+.adminContainer {
+  display: flex;
+  font-family: "Arial", sans-serif;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background-color: #2c3e50; /* Color similar a tu diseño */
+  padding: 20px 0px;
+  width: 250px;
+  top: 61px;
+  color: white;
+  height: 100vh;
+  position: fixed; /* Mantener la barra lateral fija al lado izquierdo */
+}
+
+.sidebarTitle {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.navList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.navItem {
+  border-top: 1px solid white;
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 1rem;
+  padding: 18px 12px;
+  text-decoration: none;
+  margin: 0;
+  gap: 2px;
+  & i{
+    font-style: normal;
+  }
+}
+
+.navItem:hover {
+  background-color: #4b698692;
+}
+
+.navItemI {
+  margin-left: auto;
+}
+
+.content {
+  margin-left: 250px; /* Hacer espacio para la barra lateral */
+  padding: 20px;
+  width: calc(100% - 250px); /* Asegurar que el contenido ocupe el resto de la pantalla */
+  background-color: white;
+  padding-top: 90px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+thead {
+  background-color: #007bff;
+  color: white;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
