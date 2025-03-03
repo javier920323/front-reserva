@@ -45,7 +45,7 @@ export const registrarUsuario = async ({ nombre, email, password, rol }) => {
 // Función para iniciar sesión
 export const loginUsuario = async (email, password) => {
   try {
-    const response = await fetch(`${API_URL}/api/usuarios/login`, {
+    const response = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

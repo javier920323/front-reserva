@@ -9,6 +9,7 @@ const Registro = () => {
     password: "",
     rol: "usuario", // Por defecto, "usuario", puede cambiar a "admin"
   });
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -18,10 +19,16 @@ const Registro = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     try {
       // Realizar la llamada a la API para registrar el usuario
-      await registrarUsuario(usuario);
-      navigate("/login"); // Redirigir a la página de login después de registrarse exitosamente
+      const data = await registrarUsuario(usuario);
+
+      if (data.error) {
+        setError(data.error);
+      } else {
+        navigate("/login"); // Redirigir a la página de login después de registrarse exitosamente
+      }
     } catch (err) {
       console.error("Error en el registro", err);
     }
@@ -55,15 +62,15 @@ const Registro = () => {
         <div className="radioFlex">
           <label>
             default
-            <input type="radio" name="rol" onChange={handleChange} />
+            <input type="radio" name="rol" value="usuario" onChange={handleChange} />
           </label>
 
           <label>
             admin
-            <input type="radio" name="rol" onChange={handleChange} />
+            <input type="radio" name="rol" value="admin" onChange={handleChange} />
           </label>
         </div>
-
+        {error && <p className="error">{error}</p>}
         <button type="submit">Registro</button>
       </form>
     </div>

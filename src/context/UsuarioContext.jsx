@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { loginUsuario } from "../api/api";
 
 export const UsuarioContext = createContext();
 
@@ -7,28 +8,19 @@ export const UsuarioProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const respuesta = await fetch("https://api-reserva-0pxp.onrender.com/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await respuesta.json();
-
-      if (respuesta.ok) {
-        setUsuario(data.usuario);
-        localStorage.setItem("usuario", JSON.stringify(data.usuario));
-      } else {
-        throw new Error(data.error || "Error al iniciar sesión");
+      // Realizar la llamada a la API para registrar el usuario
+      const data = await loginUsuario(email, password);
+      if (data.error) {
+        return;
       }
-    } catch (error) {
-      console.error("Error en login:", error.message);
+      setUsuario(data.usuario);
+      localStorage.setItem("usuario", JSON.stringify(data.usuario));
+    } catch (err) {
+      console.error("Error en el login", err);
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
     setUsuario(null);
     localStorage.removeItem("usuario");
   };

@@ -1,31 +1,22 @@
-import { useState } from "react";
-// import { UsuarioContext } from "./UsuarioContext";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UsuarioContext } from "../context/UsuarioContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const { login } = useContext(UsuarioContext); // Usar el contexto
+  const { usuario, login } = useContext(UsuarioContext); // Usar el contexto
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    if (usuario) {
+      navigate("/reserva");
+    }
+  }, [usuario, navigate]);
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("ok login");
-    navigate("/reserva");
-
-    // const response = await fetch("http://localhost:5000/api/login", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ email, password }),
-    // });
-
-    // if (response.ok) {
-    //   const data = await response.json(); // Recibir usuario con su rol
-    //   login(data); // Guardar en contexto
-    //   navigate("/"); // Redirigir a la página principal
-    // } else {
-    //   alert("Credenciales incorrectas");
-    // }
+    login(email, password);
   };
 
   return (
