@@ -1,5 +1,17 @@
 const API_URL = "https://api-reserva-0pxp.onrender.com/api"; // Cambia esto si tu backend está en otro puerto o dominio
 
+// Función obtener Locales
+export const obtenerLocales = async () => {
+  try {
+    const response = await fetch(`${API_URL}/locales`);
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error obtener Locales:", error);
+    return { error: "Error al obtener Locales" };
+  }
+};
+
 // Función realizar Reserva
 export const realizaReserva = async (localid, fecha) => {
   try {
