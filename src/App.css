@@ -240,6 +240,15 @@ button:disabled {
 .modal-botones {
   display: flex;
 }
+.radioFlex {
+  display: flex;
+  justify-content: space-around;
+  & label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+}
 
 /* Responsividad: cuando la pantalla es pequeña */
 @media (max-width: 768px) {
