@@ -1,14 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useLocales } from "../context/LocalesContext";
 
 const LocalesList = ({ setLocal }) => {
-  const [locales, setLocales] = useState([]);
+  const { locales, error } = useLocales();
   const [cupoLocal, setCupoLocal] = useState({});
-
-  useEffect(() => {
-    fetch("https://api-reserva-0pxp.onrender.com/api/locales")
-      .then((res) => res.json())
-      .then((data) => setLocales(data));
-  }, []);
 
   const handlerCupos = (e) => {
     const localSelect = locales.find((local) => local.nombre === e.target.value);
@@ -27,7 +22,8 @@ const LocalesList = ({ setLocal }) => {
           </option>
         ))}
       </select>
-      {cupoLocal && <h4>Cupos Disponibles: {cupoLocal.cupo}</h4>}
+      {error && <p className="error">{error}</p>}
+      {cupoLocal && !error && <h4>Cupos Disponibles: {cupoLocal.cupo}</h4>}
     </div>
   );
 };

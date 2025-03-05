@@ -21,6 +21,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
+        
         <Route element={<PrivateRoute />}>
           <Route path="/reserva" element={<Reserva />} />
           <Route path="/reserva-success" element={<ReservaSuccess />} />

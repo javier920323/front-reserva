@@ -1,32 +1,27 @@
-import { useState } from "react";
+import { useLocales } from "../../context/LocalesContext";
 
 const ConsultarLocales = () => {
-  const [reservas] = useState([
-    { _id: "1", cliente: "Juan Pérez", fecha: "2025-03-01", hora: "10:00 AM" },
-    { _id: "2", cliente: "María Gómez", fecha: "2025-03-02", hora: "2:00 PM" },
-    { _id: "3", cliente: "Carlos López", fecha: "2025-03-03", hora: "4:30 PM" },
-  ]);
+  
+  const { locales } = useLocales();
 
   return (
     <div>
-      <h2>Reservas del Local</h2>
-      {reservas.length === 0 ? (
-        <p>No hay reservas disponibles.</p>
+      <h2>Todos los Locales</h2>
+      {locales.length === 0 ? (
+        <p>No hay locales.</p>
       ) : (
         <table>
           <thead>
             <tr>
-              <th>Cliente</th>
-              <th>Fecha</th>
-              <th>Hora</th>
+              <th>Local</th>
+              <th>Cupos</th>
             </tr>
           </thead>
           <tbody>
-            {reservas.map((reserva) => (
-              <tr key={reserva._id}>
-                <td>{reserva.cliente}</td>
-                <td>{new Date(reserva.fecha).toLocaleDateString()}</td>
-                <td>{reserva.hora}</td>
+            {locales.map((local) => (
+              <tr key={local._id}>
+                <td>{local.nombre}</td>
+                <td>{local.cupo}</td>
               </tr>
             ))}
           </tbody>

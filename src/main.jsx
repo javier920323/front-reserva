@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { UsuarioProvider } from "./context/UsuarioContext.jsx";
+import { LocalesProvider } from "./context/LocalesContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <UsuarioProvider>
-        <App />
+        <LocalesProvider>
+          <App />
+        </LocalesProvider>
       </UsuarioProvider>
     </BrowserRouter>
   </StrictMode>
