@@ -1,7 +1,18 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, Navigate, useLocation } from "react-router-dom";
 import styles from "./AdminPage.module.css";
+import { useContext } from "react";
+import { UsuarioContext } from "../../context/UsuarioContext";
 
 const AdminPage = () => {
+  const { usuario } = useContext(UsuarioContext);
+  const { pathname } = useLocation();
+  console.log(usuario);
+  
+
+  // Si el usuario no está autenticado, redirigir al login
+  if (!usuario) {
+    return <Navigate to="/login" replace />;
+  }
   return (
     <div className={styles.adminContainer}>
       <div className={styles.sidebar}>
@@ -33,7 +44,9 @@ const AdminPage = () => {
       </div>
 
       <div className={styles.content}>
-        {/* Aquí se renderizarán las subrutas de la página admin */}
+        {pathname === "/dashboard" && (<>
+          {usuario.nombre}
+        </>)}
         <Outlet />
       </div>
     </div>
