@@ -13,9 +13,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     await logout();
-    // Navegamos inmediatamente al home
     navigate("/");
-    // Cierra el modal
     setIsModalOpen(false);
   };
 
@@ -25,23 +23,26 @@ const Navbar = () => {
         MiApp
       </Link>
       <div className={`menu ${isOpen ? "mobile" : ""}`}>
+        {usuario?.rol === "admin" && <Link to="/dashboard">Dashboard</Link>}
+
         <Link to="/reserva" onClick={() => setIsOpen(false)}>
           Reserva
         </Link>
 
         {!usuario ? (
-          <Link to="/login" className="logout-btn" onClick={() => setIsOpen(false)}>
-            Login
-          </Link>
+          <>
+            <Link to="/login" className="logout-btn" onClick={() => setIsOpen(false)}>
+              Login
+            </Link>
+            <Link to="/registro" onClick={() => setIsOpen(false)}>
+              Registro
+            </Link>
+          </>
         ) : (
           <button className="logout-btn" onClick={() => setIsModalOpen(true)}>
             Logout
           </button>
         )}
-
-        <Link to="/registro" onClick={() => setIsOpen(false)}>
-          Registro
-        </Link>
       </div>
       <div className="hamburger" onClick={toggleMenu}>
         <div></div>
