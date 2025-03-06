@@ -5,7 +5,7 @@ import { UsuarioContext } from "../context/UsuarioContext";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { usuario, login } = useContext(UsuarioContext); // Usar el contexto
+  const { usuario, error, login } = useContext(UsuarioContext); // Usar el contexto
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,20 +23,31 @@ const Login = () => {
     <div className="app-container container">
       <h2>Iniciar Sesión</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Correo"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div className="input-container">
+          <input
+            className="input-field"
+            type="email"
+            placeholder=""
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <label className="input-label">Correo</label>
+        </div>
+
+        <div className="input-container">
+          <input
+            className="input-field"
+            type="password"
+            placeholder=""
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <label className="input-label">Contraseña</label>
+        </div>
+
+        {error && <p className="error">{error}</p>}
         <button type="submit">Ingresar</button>
       </form>
     </div>

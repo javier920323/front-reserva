@@ -5,12 +5,15 @@ export const UsuarioContext = createContext();
 
 export const UsuarioProvider = ({ children }) => {
   const [usuario, setUsuario] = useState(null);
+  const [error, setError] = useState("");
 
   const login = async (email, password) => {
     try {
       // Realizar la llamada a la API para registrar el usuario
+      setError("");
       const data = await loginUsuario(email, password);
       if (data.error) {
+        setError(data.error);
         return;
       }
       setUsuario(data.usuario);
@@ -26,6 +29,8 @@ export const UsuarioProvider = ({ children }) => {
   };
 
   return (
-    <UsuarioContext.Provider value={{ usuario, login, logout }}>{children}</UsuarioContext.Provider>
+    <UsuarioContext.Provider value={{ usuario, error, login, logout }}>
+      {children}
+    </UsuarioContext.Provider>
   );
 };
