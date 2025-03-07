@@ -18,6 +18,7 @@ export const UsuarioProvider = ({ children }) => {
       }
       setUsuario(data.usuario);
       localStorage.setItem("usuario", JSON.stringify(data.usuario));
+      localStorage.setItem("token", data.token); // 🔥 Guarda el token
     } catch (err) {
       console.error("Error en el login", err);
     }
@@ -26,6 +27,7 @@ export const UsuarioProvider = ({ children }) => {
   const logout = async () => {
     setUsuario(null);
     localStorage.removeItem("usuario");
+    localStorage.removeItem("token");
   };
 
   return (

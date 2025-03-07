@@ -11,6 +11,54 @@ export const obtenerLocales = async () => {
     return { error: "Error al obtener Locales" };
   }
 };
+// Crear un nuevo Local
+export const crearLocales = async ({ nombre, cupo }) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    console.error("No hay token disponible");
+    return;
+  }
+  try {
+    const response = await fetch(`${API_URL}/locales`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ nombre, cupo }),
+    });
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error creando Local", error);
+    return { error: "Error creando Local" };
+  }
+};
+// Función actualizar un Local
+export const actualizarLocales = async ({ _id: id, nombre, cupo }) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    console.error("No hay token disponible");
+    return;
+  }
+  try {
+    const response = await fetch(`${API_URL}/locales`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ id, nombre, cupo }),
+    });
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error altualizando Local", error);
+    return { error: "Error altualizando Local" };
+  }
+};
 
 // Función realizar Reserva
 export const realizaReserva = async (localid, fecha) => {

@@ -6,9 +6,6 @@ import { UsuarioContext } from "../../context/UsuarioContext";
 const AdminPage = () => {
   const { usuario } = useContext(UsuarioContext);
   const { pathname } = useLocation();
-  console.log(usuario);
-  
-
   // Si el usuario no está autenticado, redirigir al login
   if (!usuario) {
     return <Navigate to="/login" replace />;
@@ -27,16 +24,16 @@ const AdminPage = () => {
             </Link>
           </li>
           <li>
-            <Link to="consultar-reservas" className={styles.navItem}>
-              <i>📅</i>
-              <span className="menu-text"> Consultar Reservas</span>
+            <Link to="crear-local" className={styles.navItem}>
+              <i>➕🏬</i>
+              <span className="menu-text"> Crear Local</span>
               <i className={styles.navItemI}>➜</i>
             </Link>
           </li>
           <li>
-            <Link to="crear-local" className={styles.navItem}>
-              <i>➕🏬</i>
-              <span className="menu-text"> Crear Local</span>
+            <Link to="consultar-reservas" className={styles.navItem}>
+              <i>📅</i>
+              <span className="menu-text"> Consultar Reservas</span>
               <i className={styles.navItemI}>➜</i>
             </Link>
           </li>
@@ -44,9 +41,16 @@ const AdminPage = () => {
       </div>
 
       <div className={styles.content}>
-        {pathname === "/dashboard" && (<>
-          {usuario.nombre}
-        </>)}
+        {pathname === "/dashboard" && (
+          <div className={styles.dashboardFirts}>
+            <h3>Bienvenido {usuario.nombre}</h3>
+            <p>
+              En el Dashboards podras hacer muchas cosas ya que eres
+              <strong> {usuario.rol}</strong> y este rol te da super poderes.
+            </p>
+            <p>Puedes navegar por el menu lateral para administrar la web de Reservas 🚀🚀</p>
+          </div>
+        )}
         <Outlet />
       </div>
     </div>

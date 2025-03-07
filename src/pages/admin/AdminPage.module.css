@@ -38,7 +38,7 @@
   text-decoration: none;
   margin: 0;
   gap: 2px;
-  & i{
+  & i {
     font-style: normal;
   }
 }
@@ -70,7 +70,8 @@ thead {
   color: white;
 }
 
-th, td {
+th,
+td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
@@ -80,6 +81,15 @@ tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
+thead tr:hover {
+  background-color: initial;
+}
 tr:hover {
   background-color: #ddd;
+}
+
+.dashboardFirts {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }

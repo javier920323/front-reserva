@@ -20,7 +20,11 @@ export function LocalesProvider({ children }) {
     fetchLocales();
   }, []);
 
-  return <LocalesContext.Provider value={{ locales, error }}>{children}</LocalesContext.Provider>;
+  return (
+    <LocalesContext.Provider value={{ locales, error, setLocales }}>
+      {children}
+    </LocalesContext.Provider>
+  );
 }
 
 export function useLocales() {
