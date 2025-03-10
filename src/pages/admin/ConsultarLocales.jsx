@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLocales } from "../../context/LocalesContext";
 import ModalContent from "../../components/Modal/ModalContent";
 import { actualizarLocales } from "../../api/api";
+import { Link } from "react-router-dom";
 
 const ConsultarLocales = () => {
   const { locales } = useLocales();
@@ -61,6 +62,7 @@ const ConsultarLocales = () => {
             <tr>
               <th>Nombre del Local</th>
               <th>Cantidad de Cupos</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -68,6 +70,9 @@ const ConsultarLocales = () => {
               <tr key={local._id} onClick={() => openModal(local)}>
                 <td>{local.nombre}</td>
                 <td>{local.cupo}</td>
+                <td>
+                  <Link to={`${local._id}`}>ver mas</Link>
+                </td>
               </tr>
             ))}
           </tbody>

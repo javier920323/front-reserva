@@ -60,6 +60,30 @@ export const actualizarLocales = async ({ _id: id, nombre, cupo }) => {
   }
 };
 
+// Función para obtener todas reservas de un local
+export const detalleLocal = async (localid) => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    console.error("No hay token disponible");
+    return;
+  }
+  try {
+    const response = await fetch(`${API_URL}/reservas/${localid}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error obtener todas reservas de un local:", error);
+    return { error: "Error al obtener obtener todas reservas de un local" };
+  }
+};
+
 // Función realizar Reserva
 export const realizaReserva = async (localid, fecha) => {
   try {
