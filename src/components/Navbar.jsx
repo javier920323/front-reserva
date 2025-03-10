@@ -39,9 +39,14 @@ const Navbar = () => {
             </Link>
           </>
         ) : (
-          <button className="logout-btn" onClick={() => setIsModalOpen(true)}>
-            Logout
-          </button>
+          <>
+            <Link to="/profile" onClick={() => setIsOpen(false)}>
+              Profile
+            </Link>
+            <button className="logout-btn" onClick={() => setIsModalOpen(true)}>
+              Logout
+            </button>
+          </>
         )}
       </div>
       <div className="hamburger" onClick={toggleMenu}>

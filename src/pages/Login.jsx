@@ -10,13 +10,17 @@ const Login = () => {
 
   useEffect(() => {
     if (usuario) {
-      navigate("/reserva");
+      if (usuario.rol === "admin") {
+        navigate("/dashboard");
+      } else {
+        navigate("/reserva");
+      }
     }
   }, [usuario, navigate]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(email, password);
+    await login(email, password);
   };
 
   return (
