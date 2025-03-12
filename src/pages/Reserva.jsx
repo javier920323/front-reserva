@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import LocalesList from "../components/LocalesList";
 import DatePicker from "../components/DataPicker/DatePicker";
 import { useNavigate } from "react-router-dom";
 import { realizaReserva } from "../api/api";
+import { UsuarioContext } from "../context/UsuarioContext";
 
 function Reserva() {
   const [local, setLocal] = useState({});
   const [fecha, setFecha] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { usuario } = useContext(UsuarioContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +23,7 @@ function Reserva() {
 
     try {
       // Llamamos a la función realizaReserva para hacer la reserva
-      await realizaReserva(local._id, fecha);
+      await realizaReserva(local._id, usuario.id, fecha);
 
       // Si todo va bien, redirigimos al usuario
       navigate("/reserva-success", {

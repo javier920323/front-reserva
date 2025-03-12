@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import styles from "../admin/AdminPage.module.css";
 
 const Profile = () => {
@@ -23,6 +23,7 @@ const Profile = () => {
           </li>
         </ul>
       </div>
+      <Outlet />
     </div>
   );
 };

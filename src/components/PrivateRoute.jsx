@@ -3,7 +3,11 @@ import { useContext } from "react";
 import { UsuarioContext } from "../context/UsuarioContext";
 
 const PrivateRoute = () => {
-  const { usuario } = useContext(UsuarioContext);
+  const { usuario, loading } = useContext(UsuarioContext);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   // Si el usuario no está autenticado, redirigir al login
   if (!usuario) {
