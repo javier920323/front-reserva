@@ -1,15 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { allReservas } from "../../api/api";
 
 const ConsultarReservas = () => {
-  const [reservas] = useState([
-    { _id: "1", cliente: "Juan Pérez", fecha: "2025-03-01", hora: "10:00 AM" },
-    { _id: "2", cliente: "María Gómez", fecha: "2025-03-02", hora: "2:00 PM" },
-    { _id: "3", cliente: "Carlos López", fecha: "2025-03-03", hora: "4:30 PM" },
-  ]);
+  const [reservas, setReservas] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function listarReservas() {
+      setError("");
+      const data = await allReservas();
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setReservas(data);
+      }
+    }
+    listarReservas();
+  }, []);
 
   return (
     <div>
-      <h2>Reservas del Local</h2>
+      <h2>Reservas en APP</h2>
+      {error && <p>{error}</p>}
       {reservas.length === 0 ? (
         <p>No hay reservas disponibles.</p>
       ) : (
@@ -17,16 +29,18 @@ const ConsultarReservas = () => {
           <thead>
             <tr>
               <th>Cliente</th>
+              <th>Correo</th>
+              <th>Local</th>
               <th>Fecha</th>
-              <th>Hora</th>
             </tr>
           </thead>
           <tbody>
             {reservas.map((reserva) => (
               <tr key={reserva._id}>
-                <td>{reserva.cliente}</td>
+                <td>{reserva.user_id.nombre}</td>
+                <td>falta agregar en la api el correo</td>
+                <td>{reserva.local_id.nombre}</td>
                 <td>{new Date(reserva.fecha).toLocaleDateString()}</td>
-                <td>{reserva.hora}</td>
               </tr>
             ))}
           </tbody>

@@ -60,6 +60,30 @@ export const actualizarLocales = async ({ _id: id, nombre, cupo }) => {
   }
 };
 
+// Función para obtener todas reservas
+export const allReservas = async () => {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    console.error("No hay token disponible");
+    return;
+  }
+  try {
+    const response = await fetch(`${API_URL}/reservas`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error obtener todas reservas ", error);
+    return { error: "Error al obtener obtener todas reservas" };
+  }
+};
+
 // Función para obtener todas reservas de un local
 export const detalleLocal = async (localid) => {
   const token = localStorage.getItem("token");
@@ -85,13 +109,13 @@ export const detalleLocal = async (localid) => {
 };
 
 // Función realizar Reserva
-export const realizaReserva = async (localid, fecha) => {
+export const realizaReserva = async (localId, usuarioId, fecha) => {
   try {
     // Hacemos la solicitud a la API para crear la reserva
     const response = await fetch(`${API_URL}/reservas`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ local_id: localid, fecha }),
+      body: JSON.stringify({ local_id: localId, user_id: usuarioId, fecha }),
     });
 
     const data = await response.json();
