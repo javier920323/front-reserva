@@ -14,6 +14,8 @@ import CrearLocal from "./pages/admin/CrearLocal";
 import DetalleLocal from "./pages/admin/DetalleLocal";
 import ProfileUser from "./pages/usuario/ProfileUser";
 import Profile from "./pages/usuario/Profile";
+import ProfileReservas from "./pages/usuario/ProfileReservas";
+import ProfileUpdateReserva from "./pages/usuario/ProfileUpdateReserva";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route path="/reserva-success" element={<ReservaSuccess />} />
           <Route path="/profile" element={<Profile />}>
             <Route path="editar" element={<ProfileUser />} />
+            <Route path="my-reserva" element={<ProfileReservas />} />
+            <Route path="my-reserva/:id" element={<ProfileUpdateReserva />} />
           </Route>
         </Route>
 

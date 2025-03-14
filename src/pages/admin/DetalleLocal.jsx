@@ -23,8 +23,6 @@ const DetalleLocal = () => {
     getDetalleLocal();
   }, []);
 
-  console.log(detalle);
-
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error: {error}</p>;
   return (
