@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import "./DataPicker.css";
 
-function DatePicker({ onDateChange }) {
+function DatePicker({ onDateChange, fecha = "" }) {
   const [showCalendar, setShowCalendar] = useState(false);
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(fecha);
   const calendarRef = useRef(null);
   const inputRef = useRef(null);
 

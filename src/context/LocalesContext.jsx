@@ -7,21 +7,22 @@ export function LocalesProvider({ children }) {
   const [locales, setLocales] = useState([]);
   const [error, setError] = useState("");
 
+  const fetchLocales = async () => {
+    setError("");
+    const data = await obtenerLocales();
+    if (data.error) {
+      setError(data.error);
+    } else {
+      setLocales(data);
+    }
+  };
+
   useEffect(() => {
-    const fetchLocales = async () => {
-      setError("");
-      const data = await obtenerLocales();
-      if (data.error) {
-        setError(data.error);
-      } else {
-        setLocales(data);
-      }
-    };
-    fetchLocales();
+    fetchLocales(); // Llamar la primera vez
   }, []);
 
   return (
-    <LocalesContext.Provider value={{ locales, error, setLocales }}>
+    <LocalesContext.Provider value={{ locales, error, setLocales, fetchLocales }}>
       {children}
     </LocalesContext.Provider>
   );

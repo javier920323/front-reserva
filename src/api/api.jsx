@@ -71,6 +71,10 @@ export const detalleLocal = (localid) => apiRequest(`/reservas/${localid}`, "GET
 export const realizaReserva = (localId, usuarioId, fecha) =>
   apiRequest("/reservas", "POST", { local_id: localId, user_id: usuarioId, fecha });
 
+// Realizar una reserva (este ejemplo no usa token, pero ajústalo si es necesario)
+export const actualizarReserva = (reserva_id, localId, fecha) =>
+  apiRequest(`/reservas/${reserva_id}`, "PUT", { local_id: localId, fecha });
+
 // Registrar un usuario
 export const registrarUsuario = ({ nombre, email, password, rol }) =>
   apiRequest("/auth/registro", "POST", { nombre, email, password, rol });

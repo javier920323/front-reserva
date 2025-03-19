@@ -40,7 +40,7 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Link to="/profile" onClick={() => setIsOpen(false)}>
+            <Link to="/profile/editar" onClick={() => setIsOpen(false)}>
               Profile
             </Link>
             <button className="logout-btn" onClick={() => setIsModalOpen(true)}>

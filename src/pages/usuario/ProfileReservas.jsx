@@ -2,11 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import { UsuarioContext } from "../../context/UsuarioContext";
 import { allReservaUser } from "../../api/api";
 import { Link, useNavigate } from "react-router-dom";
+import Loading from "../../components/Loading";
 
 const ProfileReservas = () => {
   const { usuario } = useContext(UsuarioContext);
   const [reservaUser, setReservaUser] = useState([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,6 +19,7 @@ const ProfileReservas = () => {
         setError(data.error);
       } else {
         setReservaUser(data);
+        setLoading(false);
       }
     }
     listarReservasUser();
@@ -25,6 +28,8 @@ const ProfileReservas = () => {
   const handleClick = (reserva) => {
     navigate(`${reserva._id}`, { state: reserva });
   };
+
+  if (loading) return <Loading />;
 
   return (
     <div className="app-container container">

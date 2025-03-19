@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { allReservas } from "../../api/api";
+import Loading from "../../components/Loading";
 
 const ConsultarReservas = () => {
   const [reservas, setReservas] = useState([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function listarReservas() {
@@ -13,10 +15,13 @@ const ConsultarReservas = () => {
         setError(data.error);
       } else {
         setReservas(data);
+        setLoading(false);
       }
     }
     listarReservas();
   }, []);
+
+  if (loading) return <Loading />;
 
   return (
     <div>

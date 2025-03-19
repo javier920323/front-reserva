@@ -2,13 +2,14 @@ import { useState } from "react";
 import { useLocales } from "../../context/LocalesContext";
 import ModalContent from "../../components/Modal/ModalContent";
 import { actualizarLocales } from "../../api/api";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ConsultarLocales = () => {
-  const { locales } = useLocales();
+  const { locales, fetchLocales } = useLocales();
   const [filtroLocal, setFiltroLocal] = useState(locales);
   const [showModal, setShowModal] = useState(false);
   const [localSeleccionado, setLocalSeleccionado] = useState(null);
+  const navigate = useNavigate();
 
   const handleFilter = (e) => {
     const localesFiltrados = locales.filter((local) =>
@@ -33,6 +34,7 @@ const ConsultarLocales = () => {
       [name]: name === "cupo" ? Number(value) || 0 : value,
     }));
   };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const actualizado = await actualizarLocales(localSeleccionado);
@@ -41,8 +43,14 @@ const ConsultarLocales = () => {
       setFiltroLocal((prevLocales) =>
         prevLocales.map((local) => (local._id === actualizado._id ? actualizado : local))
       );
+      fetchLocales();
     }
     closeModal();
+  };
+
+  const handleClick = (e, id) => {
+    e.stopPropagation();
+    navigate(id);
   };
 
   return (
@@ -70,9 +78,7 @@ const ConsultarLocales = () => {
               <tr key={local._id} onClick={() => openModal(local)}>
                 <td>{local.nombre}</td>
                 <td>{local.cupo}</td>
-                <td>
-                  <Link to={`${local._id}`}>ver mas</Link>
-                </td>
+                <td onClick={(e) => handleClick(e, local._id)}>ver mas</td>
               </tr>
             ))}
           </tbody>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { detalleLocal } from "../../api/api";
 import { useParams } from "react-router-dom";
+import Loading from "../../components/Loading";
 
 const DetalleLocal = () => {
   const [detalle, setDetalle] = useState(null);
@@ -23,28 +24,50 @@ const DetalleLocal = () => {
     getDetalleLocal();
   }, []);
 
-  if (loading) return <p>Cargando...</p>;
+  if (loading) return <Loading />;
+
   if (error) return <p>Error: {error}</p>;
   return (
-    <div>
-      <h2>Información del Local</h2>
-      <p>
-        <strong>Local:</strong> {detalle.local}
-      </p>
-      <p>
-        <strong>Cupos Disponibles:</strong> {detalle.cupo_total}
-      </p>
-      <p>
-        <strong>Cantidad total de reservas:</strong> {detalle.cupo_ocupado}
-      </p>
-      <h3>Reservas</h3>
-      <ul>
+    <div className="local-container">
+      <div className="local-header">
+        <h2>Información del Local</h2>
+      </div>
+      <div className="local-info">
+        <p>
+          <strong>Local:</strong> {detalle.local}
+        </p>
+        <p>
+          <strong>Cupos Disponibles:</strong> {detalle.cupo_total}
+        </p>
+        <p>
+          <strong>Cantidad total de reservas:</strong> {detalle.cupo_ocupado}
+        </p>
+      </div>
+      <div className="reservations">
+        <h3>Reservas</h3>
         {detalle.reservas.length > 0 ? (
-          detalle.reservas.map((reserva, index) => <li key={index}>{reserva.fecha}</li>)
+          <div className="table-container">
+            <table className="reservations-table">
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Cliente</th>
+                </tr>
+              </thead>
+              <tbody>
+                {detalle.reservas.map((reserva, index) => (
+                  <tr key={index}>
+                    <td>{reserva.fecha}</td>
+                    <td>{reserva.user_id?.nombre}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         ) : (
           <p>No hay reservas.</p>
         )}
-      </ul>
+      </div>
     </div>
   );
 };
