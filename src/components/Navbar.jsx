@@ -1,5 +1,5 @@
-import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { UsuarioContext } from "../context/UsuarioContext";
 import { useNavigate } from "react-router-dom";
 
@@ -7,7 +7,12 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false); // Estado para el menú hamburguesa
   const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
   const { usuario, logout } = useContext(UsuarioContext);
+  const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
