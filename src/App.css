@@ -132,7 +132,7 @@ button:disabled {
 .home-content {
   display: flex;
   justify-content: space-around;
-  margin: 40px 0;
+  margin: 30px 0;
 }
 
 .info-box {
@@ -276,8 +276,9 @@ button:disabled {
 
 /* Cuando el menú hamburguesa está abierto */
 .navbar.open .hamburger div:nth-child(1) {
-  transform: rotate(45deg);
   transform-origin: center;
+  transform: translateY(10px);
+  rotate: 45deg;
 }
 
 .navbar.open .hamburger div:nth-child(2) {
@@ -285,8 +286,9 @@ button:disabled {
 }
 
 .navbar.open .hamburger div:nth-child(3) {
-  transform: rotate(-45deg);
   transform-origin: center;
+  transform: translateY(-10px);
+  rotate: -45deg;
 }
 
 /* Estilos para el menú en pantallas pequeñas */
@@ -294,10 +296,22 @@ button:disabled {
   display: none;
   flex-direction: column;
   gap: 1rem;
+  transform: translateX(100%);
+  transition: 1s transform;
 }
 
 .navbar.open .menu.mobile {
   display: flex;
+  position: fixed;
+  left: 0;
+  height: 100%;
+  z-index: 1111;
+  background: #2c3e50;
+  right: 0;
+  top: 60px;
+  bottom: 0;
+  transform: translateX(0%);
+  padding: 30px;
 }
 
 .modal {
@@ -457,6 +471,17 @@ button:disabled {
 
   .navbar.open .menu {
     display: flex;
+  }
+  .home-content {
+    flex-direction: column;
+    gap: 14px;
+  }
+  .info-box {
+    width: 100%;
+  }
+  .home-buttons {
+    flex-direction: column;
+    gap: 0px;
   }
 }
 
