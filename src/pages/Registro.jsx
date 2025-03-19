@@ -65,10 +65,10 @@ const Registro = () => {
             <input type="radio" name="rol" value="usuario" onChange={handleChange} />
           </label>
 
-          <label>
+          {/* <label>
             admin
             <input type="radio" name="rol" value="admin" onChange={handleChange} />
-          </label>
+          </label> */}
         </div>
         {error && <p className="error">{error}</p>}
         <button type="submit">Registro</button>
