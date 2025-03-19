@@ -59,17 +59,17 @@ const Registro = () => {
           value={usuario.password}
           onChange={handleChange}
         />
-        <div className="radioFlex">
+        {/* <div className="radioFlex">
           <label>
             default
             <input type="radio" name="rol" value="usuario" onChange={handleChange} />
           </label>
 
-          {/* <label>
+          <label>
             admin
             <input type="radio" name="rol" value="admin" onChange={handleChange} />
-          </label> */}
-        </div>
+          </label>
+        </div> */}
         {error && <p className="error">{error}</p>}
         <button type="submit">Registro</button>
       </form>
