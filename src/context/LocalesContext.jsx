@@ -18,7 +18,7 @@ export function LocalesProvider({ children }) {
   };
 
   useEffect(() => {
-    fetchLocales(); // Llamar la primera vez
+    fetchLocales(); 
   }, []);
 
   return (

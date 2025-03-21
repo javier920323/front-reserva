@@ -459,6 +459,8 @@ button:disabled {
   text-align: left;
 }
 
+
+
 /* Responsividad: cuando la pantalla es pequeña */
 @media (max-width: 768px) {
   .navbar .menu {

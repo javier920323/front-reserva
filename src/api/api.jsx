@@ -57,11 +57,12 @@ export const crearLocales = ({ nombre, cupo }) =>
 export const actualizarLocales = ({ _id: id, nombre, cupo }) =>
   apiRequest("/locales", "PUT", { id, nombre, cupo }, true);
 
+export const eliminarLocal = (id) => apiRequest("/locales", "DELETE", { id }, true);
+
 // Obtener todas las reservas (requiere token)
 export const allReservas = () => apiRequest("/reservas", "GET", null, true);
 
 // Obtener todas las reservas de un usuario (según el ID del usuario)
-// Si este endpoint no requiere token, se mantiene sin requireAuth.
 export const allReservaUser = (user_id) => apiRequest(`/reservas/user/${user_id}`);
 
 // Obtener el detalle de un local (reservas de un local, requiere token)

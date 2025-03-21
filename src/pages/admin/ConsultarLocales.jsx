@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useLocales } from "../../context/LocalesContext";
 import ModalContent from "../../components/Modal/ModalContent";
-import { actualizarLocales } from "../../api/api";
+import { actualizarLocales, eliminarLocal } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 
 const ConsultarLocales = () => {
   const { locales, fetchLocales } = useLocales();
   const [filtroLocal, setFiltroLocal] = useState(locales);
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [localSeleccionado, setLocalSeleccionado] = useState(null);
   const navigate = useNavigate();
 
@@ -18,12 +19,13 @@ const ConsultarLocales = () => {
     setFiltroLocal(localesFiltrados);
   };
 
-  const openModal = (local) => {
+  const handleEditar = (e, local) => {
+    e.stopPropagation();
     setLocalSeleccionado(local);
     setShowModal(true);
   };
 
-  const closeModal = () => {
+  const closeEditarModal = () => {
     setShowModal(false);
   };
 
@@ -34,8 +36,8 @@ const ConsultarLocales = () => {
       [name]: name === "cupo" ? Number(value) || 0 : value,
     }));
   };
-  
-  const handleSubmit = async (e) => {
+
+  const confirmarEditar = async (e) => {
     e.preventDefault();
     const actualizado = await actualizarLocales(localSeleccionado);
 
@@ -45,12 +47,34 @@ const ConsultarLocales = () => {
       );
       fetchLocales();
     }
-    closeModal();
+    closeEditarModal();
   };
 
-  const handleClick = (e, id) => {
-    e.stopPropagation();
+  const handleClick = (id) => {
     navigate(id);
+  };
+
+  const handleEliminar = (e, local) => {
+    e.stopPropagation();
+    setLocalSeleccionado(local);
+    setShowDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setShowDeleteModal(false);
+  };
+
+  const confirmarEliminar = async () => {
+    const eliminado = await eliminarLocal(localSeleccionado._id);
+    console.log(localSeleccionado._id);
+
+    if (!eliminado.error) {
+      setFiltroLocal((prevLocales) =>
+        prevLocales.filter((local) => local._id !== localSeleccionado._id)
+      );
+      fetchLocales(); // Actualiza la lista de locales
+    }
+    closeDeleteModal(); // Cierra el modal
   };
 
   return (
@@ -71,23 +95,25 @@ const ConsultarLocales = () => {
               <th>Nombre del Local</th>
               <th>Cantidad de Cupos</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {filtroLocal.map((local) => (
-              <tr key={local._id} onClick={() => openModal(local)}>
+              <tr key={local._id} onClick={() => handleClick(local._id)}>
                 <td>{local.nombre}</td>
                 <td>{local.cupo}</td>
-                <td onClick={(e) => handleClick(e, local._id)}>ver mas</td>
+                <td onClick={(e) => handleEditar(e, local)}> ✏️ Editar</td>
+                <td onClick={(e) => handleEliminar(e, local)}>🗑️ Eliminar</td>
               </tr>
             ))}
           </tbody>
         </table>
       )}
       {showModal && (
-        <ModalContent isOpen={showModal} onClose={closeModal}>
+        <ModalContent isOpen={showModal} onClose={closeEditarModal}>
           <h2>Editar el local</h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={confirmarEditar}>
             <label>
               Nuevo Nombre:
               <input
@@ -108,12 +134,29 @@ const ConsultarLocales = () => {
               />
             </label>
             <div className="radioFlex">
-              <button onClick={closeModal} type="button">
+              <button onClick={closeEditarModal} type="button">
                 Cancelar
               </button>
               <button type="submit">Editar</button>
             </div>
           </form>
+        </ModalContent>
+      )}
+
+      {showDeleteModal && (
+        <ModalContent isOpen={showDeleteModal} onClose={closeDeleteModal}>
+          <div className="notification">
+            <p>¿Estás seguro de que quieres eliminar?</p>
+            <div className="radioFlex">
+              <button onClick={closeDeleteModal}>Cancelar</button>
+              <button
+                onClick={confirmarEliminar}
+                style={{ backgroundColor: "red", color: "white" }}
+              >
+                Aceptar
+              </button>
+            </div>
+          </div>
         </ModalContent>
       )}
     </div>
