@@ -10,7 +10,6 @@ const Registro = () => {
     rol: "usuario", // Por defecto, "usuario", puede cambiar a "admin"
   });
   const [error, setError] = useState("");
-
   const navigate = useNavigate();
 
   const handleChange = (e) => {

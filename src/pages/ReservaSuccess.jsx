@@ -27,7 +27,7 @@ const ReservaSuccess = () => {
       <p>
         <strong>Fecha:</strong> {new Date(fecha).toLocaleDateString()}
       </p>
-      <button onClick={() => navigate("/")}>Volver al inicio</button>
+      <button onClick={() => navigate("/profile/my-reserva")}>Ver mis Reservas</button>
     </div>
   );
 };

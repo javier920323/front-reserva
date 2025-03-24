@@ -76,10 +76,15 @@ export const realizaReserva = (localId, usuarioId, fecha) =>
 export const actualizarReserva = (reserva_id, localId, fecha) =>
   apiRequest(`/reservas/${reserva_id}`, "PUT", { local_id: localId, fecha });
 
-// Registrar un usuario
-export const registrarUsuario = ({ nombre, email, password, rol }) =>
-  apiRequest("/auth/registro", "POST", { nombre, email, password, rol });
+export const eliminarReserva = (reserva_id) => apiRequest(`/reservas/${reserva_id}`, "DELETE");
 
 // Iniciar sesión (incluye credentials para enviar cookies, si es necesario)
 export const loginUsuario = (email, password) =>
   apiRequest("/auth/login", "POST", { email, password }, false, { credentials: "include" });
+
+// Registrar un usuario
+export const registrarUsuario = ({ nombre, email, password, rol }) =>
+  apiRequest("/auth/registro", "POST", { nombre, email, password, rol });
+
+export const updateUsuario = ({ id, nombre, password }) =>
+  apiRequest("/auth/actualizar", "PUT", { id, nombre, password });

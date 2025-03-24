@@ -66,7 +66,6 @@ const ConsultarLocales = () => {
 
   const confirmarEliminar = async () => {
     const eliminado = await eliminarLocal(localSeleccionado._id);
-    console.log(localSeleccionado._id);
 
     if (!eliminado.error) {
       setFiltroLocal((prevLocales) =>
